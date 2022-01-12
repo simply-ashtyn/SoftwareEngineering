@@ -30,21 +30,22 @@ namespace Lab1
         }
 
         // A3
-        public static void ReadString()
+        public static string ReadString()
         {
-            Console.WriteLine();
-            string input = Console.ReadLine();
-            if (String.IsNullOrEmpty(input) )
+            Console.Write("Enter your choice: ");
+            string choice = Console.ReadLine();
+            if (String.IsNullOrEmpty(choice) )
             {
                 Console.WriteLine("That is not a valid input, please try again.");
             }
-            Console.WriteLine(input);
+            return choice;
         }
 
         // A4
-        string[] options = new string[] { "1. The Speech", "2. List of Words", "3. Show Histogram", "4. Search for Word", "5. Remove Word", "6. Exit" };
-        public static void ReadChoice(string []  options)
-        { 
+
+        public static void ReadChoice()
+        {
+            string[] options = new string[] { "1. The Speech", "2. List of Words", "3. Show Histogram", "4. Search for Word", "5. Remove Word", "6. Exit" };
             for (int i = 0; i < options.Length; i++)
             {
                 Console.WriteLine(options[i]);
@@ -54,7 +55,7 @@ namespace Lab1
         }
 
         // B1
-        public static void GetSpeech()
+        public static string GetSpeech()
         {
             string text = "I say to you today, my friends, so even though we face the difficulties of today and tomorrow, I still have a dream. It is a dream deeply rooted in the American dream. " +
                 "I have a dream that one day this nation will rise up and live out the true meaning of its creed: We hold these truths to be self-evident: that all men are created equal. " +
@@ -70,32 +71,54 @@ namespace Lab1
                 "Let freedom ring from the snowcapped Rockies of Colorado! Let freedom ring from the curvaceous slopes of California! But not only that; let freedom ring from Stone Mountain of Georgia! " +
                 "Let freedom ring from Lookout Mountain of Tennessee! Let freedom ring from every hill and molehill of Mississippi. From every mountainside, let freedom ring. " +
                 "And when this happens, when we allow freedom to ring, when we let it ring from every village and every hamlet, from every state and every city, we will be able to speed up that day when all of God's children, black men and white men, Jews and Gentiles, Protestants and Catholics, will be able to join hands and sing in the words of the old Negro spiritual, Free at last! free at last! thank God Almighty, we are free at last!";
-            Console.Write(text);
-        }
-        //B2
-        public static void Words()
-        {
-            char[] delim = new char[] { ' ',',','.','"','+'};
-            string[] words = text.Split(delim, StringSplitOptions.RemoveEmptyEntries);
-            Console.WriteLine(words);
+            return text;
         }
 
-        //C1
-        public static void Dictionary()
+        //C2 --- Why is it making me put an s at the end of key and value??
+        public static void Histogram(Dictionary<string, int> wordCount)
         {
-            Dictionary<string, int> wordCount = new Dictionary<string, int>()
+            foreach (var words in wordCount)
             {
-            };
-            foreach (var item in word)
-            {
-                bool isFound = word.ContainsKey(word);
-                word.Add();
+                Console.Write($"{wordCount.Keys,-10}");
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.Write($"{wordCount.Values,15}");
+                Console.ResetColor();
             }
         }
-        public static void WordSearch()
+
+        //C3
+        public static void WordSearch(Dictionary<string,int> wordCount)
         {
             Console.Write("What word do you want to find? ");
             string search = Console.ReadLine();
+            bool found = wordCount.ContainsKey(search);
+            if (found)
+            {
+                Console.WriteLine(search);
+
+                int searchCount = wordCount[search];
+                Console.WriteLine(searchCount);
+            }
+            else
+            {
+                Console.WriteLine($"{search} not found");
+            }
+        }
+
+        //C5
+        public static void RemoveWord(Dictionary<string, int> wordCount)
+        {
+            Console.Write("What word do you want to remove?");
+            ReadString();
+            bool wasRemoved = wordCount.Remove(choice);
+            if (wasRemoved)
+            {
+                Console.WriteLine($"{choice} was removed.");
+            }
+            else
+            {
+                Console.WriteLine($"{choice} not found.");
+            }
         }
 }
 
