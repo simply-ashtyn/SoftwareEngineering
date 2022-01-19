@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,17 +8,54 @@ using System.Threading.Tasks;
 
 namespace File_IO_Lecture_Challenge
 {
+    enum Superpower
+    {
+        Flight, Teleportation, Telekinesis, XRayVision, Strength, Speed, Money, Invisibility, Water
+    }
+    class Superhero
+    {
+        public string Name { get; set; }
+        public string Secret { get; set; }
+        public Superpower Power {get; set;}
+    }
     class Program
     {
         static void Main(string[] args)
         {
             string filePath = "Challenge.txt";
             WriteData(filePath);
-            ReadData();
+            ReadData(filePath);
+
+            filePath = Path.ChangeExtension(filePath, ".json");
+
+            List<Superhero> hero = new List<Superhero>();
+            hero.Add(new Superhero() { Name = "Batman", Secret = "Bruce Wayne", Power = Superpower.Money });
+            hero.Add(new Superhero() { Name = "Wonder Woman", Secret = "Diana Prince", Power = Superpower.Strength });
+            hero.Add(new Superhero() { Name = "Flash", Secret = "Barry Allen", Power = Superpower.Speed });
+            hero.Add(new Superhero() { Name = "Iron Man", Secret = "Tony Stark", Power = Superpower.Flight });
+
+            using (JsonTextWriter jtw = new JsonTextWriter(sw))
+            {
+                jtw.Formatting = Formatting.Indented;
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(jtw, hero);
+            }
+
+            
+
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                using (JsonTextWriter jtw = new JsonTextWriter(sw))
+                {
+
+                }
+            }
 
 
             Console.ReadKey();
         }
+
+
 
         static void WriteData(string filePath)
         {
@@ -39,18 +77,24 @@ namespace File_IO_Lecture_Challenge
             }
         }
 
-        static void ReadData()
+        static void ReadData(string fPath)
         {
-            string filePath = @"C:\Users\ashty\OneDrive\Documents\Visual Studio 2019\Projects\GitHub\File IO Lecture Challenge\File IO Lecture Challenge\bin\Debug\Challenge.txt";
-            using (StreamReader sr = new StreamReader(filePath))
+            using (StreamReader sr = new StreamReader(fPath))
             {
                 Console.WriteLine("---------DATA---------");
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] data = line.Split(',');
-                    List<string> DATA = data.ToList();
-                    foreach (var item in DATA)
+                    List<int> DATA = new List<int>();
+                    foreach (string item in data)
+                    {
+                        if (int.TryParse(item, out int number))
+                        {
+                            DATA.Add(number);
+                        }
+                    }
+                    foreach (int item in DATA)
                     {
                         Console.WriteLine(item);
                     }
