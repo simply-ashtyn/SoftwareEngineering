@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace BlackjackObjects
 {
-    class Factory
+    public static class Factory
     {
+        public static Card CreateCard(CardFace face, CardSuit suit)
+        {
+            Card newCard = new Card(face, suit);
+            return newCard;
+        }
+
+        public static Card CreateBlackjackCard(CardFace face, CardSuit suit)
+        {
+            Card BJCard = new Card(face, suit);
+            return BJCard;
+        }
     }
 }
