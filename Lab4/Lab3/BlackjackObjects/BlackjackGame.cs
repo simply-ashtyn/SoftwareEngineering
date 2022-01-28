@@ -26,6 +26,7 @@ namespace BlackjackObjects
                 _player = new List<Card>();
                 _deck = new List<Card>();
                 DealInitialCards();
+                DrawTable();
                 while (dealerScore != 21 && playerScore != 21)
                 {
                     PlayersTurn();
@@ -82,6 +83,7 @@ namespace BlackjackObjects
                 {
                     Card dealt = deck.Deal();
                     _player.Add(dealt);
+                    DrawTable();
                 }
                 else if (choice == "stand")
                 {
@@ -105,6 +107,7 @@ namespace BlackjackObjects
             {
                 Card dealt = deck.Deal();
                 _dealer.Add(dealt);
+                DrawTable();
             }
         }
 

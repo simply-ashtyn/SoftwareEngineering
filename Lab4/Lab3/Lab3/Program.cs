@@ -10,8 +10,7 @@ namespace Lab3
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Deck deck = new Deck();
-            
-
+            BlackjackGame newGame = new BlackjackGame();
 
             bool playing = true;
             do
@@ -21,7 +20,7 @@ namespace Lab3
                 if (choice == 1)
                 {
                     Console.Clear();
-                    Console.WriteLine("this option is still under construction");
+                    newGame.PlayRound();
                     Console.ReadKey();
                     Console.Clear();
                 }
