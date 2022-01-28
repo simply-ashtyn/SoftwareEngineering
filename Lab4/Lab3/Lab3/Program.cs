@@ -10,7 +10,7 @@ namespace Lab3
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Deck deck = new Deck();
-           
+            
 
 
             bool playing = true;
@@ -28,7 +28,9 @@ namespace Lab3
                 else if (choice == 2)
                 {
                     Console.Clear();
-                    
+                    deck.CreateAllCards();
+                    deck.Shuffle();
+                    Hand.PrintHand(x,y);
                     Console.ReadKey();
                     Console.Clear();
                 }

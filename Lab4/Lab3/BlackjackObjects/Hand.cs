@@ -19,7 +19,7 @@ namespace BlackjackObjects
         {
             foreach (var card in _cards)
             {
-                Card.PrintCard(x,y);
+                card.PrintCard(x,y);
             }
         }
     }

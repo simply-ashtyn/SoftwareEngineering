@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackjackObjects
 {
-    class BlackjackHand : Hand
+    public class BlackjackHand : Hand
     {
         public int playerScore { get; private set; }
         public bool IsDealer = false;

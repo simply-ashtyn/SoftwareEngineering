@@ -15,6 +15,8 @@ namespace BlackjackObjects
         int playerScore = 0;
         Deck deck = new Deck();
         bool playing = true;
+        int x, y;
+        BlackjackHand hand = new BlackjackHand();
 
         public void PlayRound()
         {
@@ -53,7 +55,7 @@ namespace BlackjackObjects
                 _player.Add(dealt);
                 foreach (var item in _player)
                 {
-                    PrintCard();
+                    hand.PrintHand(x,y);
                 }
             }
             for (int i = 0; i < 2; i++)
@@ -74,15 +76,20 @@ namespace BlackjackObjects
                 }
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine(playerScore);
-                Console.Write("Hit or Stand? ");
+                Console.Write("hit, stand, or surrender? ");
                 string choice = Console.ReadLine();
-                if (choice == "Hit")
+                if (choice == "hit")
                 {
                     Card dealt = deck.Deal();
                     _player.Add(dealt);
                 }
-                else if (choice == "Stand")
+                else if (choice == "stand")
                 {
+                    break;
+                }
+                else if (choice == "surrender")
+                {
+                    playerScore = 0;
                     break;
                 }
                 else
@@ -127,7 +134,23 @@ namespace BlackjackObjects
 
         public void DrawTable()
         {
+            Console.SetCursorPosition(15, 2);
+            Console.WriteLine("Players Hand");
+            foreach (var item in _player)
+            {
+                hand.PrintHand(x, y);
+            }
+            Console.SetCursorPosition(15, 15);
+            Console.WriteLine($"Player Score = {playerScore}");
 
+            Console.SetCursorPosition(65, 2);
+            Console.WriteLine("Dealers Hand");
+            foreach (var item in _dealer)
+            {
+                hand.PrintHand(x, y);
+            }
+            Console.SetCursorPosition(65, 15);
+            Console.WriteLine($"Dealer Score = {dealerScore}");
         }
     }
 }
