@@ -137,6 +137,7 @@ namespace BlackjackObjects
 
         public void DrawTable()
         {
+            Console.Clear();
             Console.SetCursorPosition(15, 2);
             Console.WriteLine("Players Hand");
             foreach (var item in _player)
